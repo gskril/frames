@@ -1,13 +1,22 @@
 import { Button, Frog, TextInput } from 'frog'
-import { backgroundStyles, logo } from './styles'
 import { Address, parseEther } from 'viem'
+
 import {
   getUserDataByFid,
   getEthAddressFromFid,
   getFidFromUsername,
 } from './hub'
+import { backgroundStyles, getFonts } from './styles'
+import { Home } from './web'
 
-export const app = new Frog()
+export const app = new Frog({
+  browserLocation: '/',
+  imageOptions: async () => {
+    return { fonts: await getFonts() }
+  },
+})
+
+app.hono.get('/', (ctx) => ctx.html(<Home />))
 
 app.frame('/tip', async (ctx) => {
   const { username } = ctx.req.query()
@@ -28,11 +37,13 @@ app.frame('/tip', async (ctx) => {
           <img
             src={pfp}
             width={224}
+            height={224}
             style={{
               position: 'absolute',
               right: 0,
               borderRadius: 999,
               boxShadow: '2px 2px 100px 32px rgba(133, 93, 205, 0.3)',
+              objectFit: 'cover',
             }}
           />
         </div>
