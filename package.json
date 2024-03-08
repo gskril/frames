@@ -6,10 +6,8 @@
     "wrangler:deploy": "wrangler deploy --minify src/index.tsx"
   },
   "dependencies": {
-    "@ensdomains/ensjs": "^3.4.4",
     "frog": "^0.5.5",
-    "hono": "^4.0.9",
-    "viem": "^2.7.19"
+    "hono": "^4.0.9"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240208.0",
