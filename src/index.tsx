@@ -19,7 +19,55 @@ export const app = new Frog({
 app.hono.get('/', (ctx) => ctx.html(<Home />))
 
 app.frame('/tip', async (ctx) => {
-  const { username } = ctx.req.query()
+  const username = ctx.inputText || ctx.req.query('username')
+
+  if (!username) {
+    return ctx.res({
+      action: '/tip',
+      image: (
+        <div style={{ ...backgroundStyles }}>
+          <div style={{ display: 'flex' }}>
+            <span style={{ paddingTop: 48 }}>Tip your Farcaster Friends</span>
+            <img
+              src="https://github.com/vrypan/farcaster-brand/blob/main/icons/icon-transparent/transparent-purple.png?raw=true"
+              width={224}
+              height={224}
+              style={{
+                position: 'absolute',
+                right: 0,
+                borderRadius: 32,
+                boxShadow: '2px 2px 100px 32px rgba(133, 93, 205, 0.3)',
+                objectFit: 'cover',
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              bottom: 0,
+              padding: '60px 80px',
+              width: '100vw',
+            }}
+          >
+            <span
+              style={{
+                fontSize: 30,
+                color: '#ADA6B4',
+              }}
+            >
+              Created by @greg
+            </span>
+          </div>
+        </div>
+      ),
+      intents: [
+        <TextInput placeholder="Farcaster username" />,
+        <Button>Next</Button>,
+      ],
+    })
+  }
 
   const fid = await getFidFromUsername(username)
   const [address, description, pfp] = await Promise.all([
