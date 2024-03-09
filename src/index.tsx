@@ -1,7 +1,7 @@
 import { Frog } from 'frog'
 
 import { Home } from './web'
-import tipFrame from './frames/tip/index'
+import tipFrame from './frames/tip'
 
 export const app = new Frog()
 

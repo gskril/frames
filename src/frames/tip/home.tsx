@@ -1,26 +1,16 @@
-import { Button, Frog, TextInput } from 'frog'
-import { Address, parseEther } from 'viem'
-
+import { Button, FrameContext, TextInput } from 'frog'
+import { backgroundStyles } from './styles'
 import {
-  getUserDataByFid,
   getEthAddressFromFid,
   getFidFromUsername,
+  getUserDataByFid,
 } from '../hub'
-import { backgroundStyles } from './styles'
-import { getFonts } from '../fonts'
 
-export const app = new Frog({
-  browserLocation: '/',
-  imageOptions: async () => {
-    return { fonts: await getFonts() }
-  },
-})
-
-app.frame('/', async (ctx) => {
-  const username = ctx.inputText || ctx.req.query('username')
+export const homeScreen = async (c: FrameContext) => {
+  const username = c.inputText || c.req.query('username')
 
   if (!username) {
-    return ctx.res({
+    return c.res({
       action: '/',
       image: (
         <div style={{ ...backgroundStyles }}>
@@ -82,7 +72,7 @@ app.frame('/', async (ctx) => {
 
     if (!address) throw new Error('No address found')
   } catch (err) {
-    return ctx.res({
+    return c.res({
       action: '/',
       image: (
         <div style={{ ...backgroundStyles }}>
@@ -95,7 +85,7 @@ app.frame('/', async (ctx) => {
     })
   }
 
-  return ctx.res({
+  return c.res({
     action: '/finish',
     image: (
       <div style={{ ...backgroundStyles }}>
@@ -145,63 +135,4 @@ app.frame('/', async (ctx) => {
       </Button.Transaction>,
     ],
   })
-})
-
-app.transaction('/tx', async (ctx) => {
-  const address = ctx.req.query('address') as Address
-  const network = ctx.req.query('network') as '10' | '8453'
-
-  const { inputText } = ctx
-  const tipAmount = inputText || '0.001'
-
-  return ctx.send({
-    chainId: `eip155:${network}`,
-    to: address,
-    value: parseEther(tipAmount),
-  })
-})
-
-app.frame('/finish', (ctx) => {
-  return ctx.res({
-    image: (
-      <div style={{ ...backgroundStyles }}>
-        <div style={{ display: 'flex' }}>
-          <span style={{ paddingTop: 48, width: '75%', lineHeight: 1 }}>
-            Thanks for tipping!
-          </span>
-          <img
-            src="https://github.com/vrypan/farcaster-brand/blob/main/icons/icon-transparent/transparent-purple.png?raw=true"
-            width={224}
-            style={{
-              position: 'absolute',
-              right: 0,
-              borderRadius: 32,
-              boxShadow: '2px 2px 100px 32px rgba(133, 93, 205, 0.3)',
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            position: 'absolute',
-            bottom: 0,
-            padding: '60px 80px',
-            width: '100vw',
-          }}
-        >
-          <span
-            style={{
-              fontSize: 30,
-              color: '#ADA6B4',
-            }}
-          >
-            Created by @greg
-          </span>
-        </div>
-      </div>
-    ),
-  })
-})
-
-export default app
+}
