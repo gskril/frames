@@ -1,4 +1,4 @@
-import { Button, TextInput } from 'frog'
+import { Button, Frog, TextInput } from 'frog'
 import { Address, parseEther } from 'viem'
 
 import {
@@ -7,14 +7,21 @@ import {
   getFidFromUsername,
 } from '../hub'
 import { backgroundStyles } from './styles'
-import { app } from '../../app'
+import { getFonts } from '../fonts'
 
-app.frame('/tip', async (ctx) => {
+export const app = new Frog({
+  browserLocation: '/',
+  imageOptions: async () => {
+    return { fonts: await getFonts() }
+  },
+})
+
+app.frame('/', async (ctx) => {
   const username = ctx.inputText || ctx.req.query('username')
 
   if (!username) {
     return ctx.res({
-      action: '/tip',
+      action: '/',
       image: (
         <div style={{ ...backgroundStyles }}>
           <div style={{ display: 'flex' }}>
@@ -76,7 +83,7 @@ app.frame('/tip', async (ctx) => {
     if (!address) throw new Error('No address found')
   } catch (err) {
     return ctx.res({
-      action: '/tip',
+      action: '/',
       image: (
         <div style={{ ...backgroundStyles }}>
           <div style={{ display: 'flex' }}>
@@ -89,7 +96,7 @@ app.frame('/tip', async (ctx) => {
   }
 
   return ctx.res({
-    action: '/tip/finish',
+    action: '/finish',
     image: (
       <div style={{ ...backgroundStyles }}>
         <div style={{ display: 'flex' }}>
@@ -130,17 +137,17 @@ app.frame('/tip', async (ctx) => {
     ),
     intents: [
       <TextInput placeholder="ETH Amount" />,
-      <Button.Transaction target={`/tip/tx?address=${address}&network=8453`}>
+      <Button.Transaction target={`/tx?address=${address}&network=8453`}>
         Tip on Base
       </Button.Transaction>,
-      <Button.Transaction target={`/tip/tx?address=${address}&network=10`}>
+      <Button.Transaction target={`/tx?address=${address}&network=10`}>
         Tip on Optimism
       </Button.Transaction>,
     ],
   })
 })
 
-app.transaction('/tip/tx', async (ctx) => {
+app.transaction('/tx', async (ctx) => {
   const address = ctx.req.query('address') as Address
   const network = ctx.req.query('network') as '10' | '8453'
 
@@ -154,7 +161,7 @@ app.transaction('/tip/tx', async (ctx) => {
   })
 })
 
-app.frame('/tip/finish', (ctx) => {
+app.frame('/finish', (ctx) => {
   return ctx.res({
     image: (
       <div style={{ ...backgroundStyles }}>
