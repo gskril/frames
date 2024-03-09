@@ -1,22 +1,13 @@
-import { Button, Frog, TextInput } from 'frog'
+import { Button, TextInput } from 'frog'
 import { Address, parseEther } from 'viem'
 
 import {
   getUserDataByFid,
   getEthAddressFromFid,
   getFidFromUsername,
-} from './hub'
-import { backgroundStyles, getFonts } from './styles'
-import { Home } from './web'
-
-export const app = new Frog({
-  browserLocation: '/',
-  imageOptions: async () => {
-    return { fonts: await getFonts() }
-  },
-})
-
-app.hono.get('/', (ctx) => ctx.html(<Home />))
+} from '../hub'
+import { backgroundStyles } from './styles'
+import { app } from '../../app'
 
 app.frame('/tip', async (ctx) => {
   const username = ctx.inputText || ctx.req.query('username')
@@ -27,7 +18,7 @@ app.frame('/tip', async (ctx) => {
       image: (
         <div style={{ ...backgroundStyles }}>
           <div style={{ display: 'flex' }}>
-            <span style={{ paddingTop: 48 }}>Tip your Farcaster Friends</span>
+            <span style={{ paddingTop: 48 }}>Tip Your Farcaster Friends</span>
             <img
               src="https://github.com/vrypan/farcaster-brand/blob/main/icons/icon-transparent/transparent-purple.png?raw=true"
               width={224}
@@ -69,12 +60,33 @@ app.frame('/tip', async (ctx) => {
     })
   }
 
-  const fid = await getFidFromUsername(username)
-  const [address, description, pfp] = await Promise.all([
-    getEthAddressFromFid(fid),
-    getUserDataByFid(fid, 3),
-    getUserDataByFid(fid, 1),
-  ])
+  let fid: number, address: string, description: string, pfp: string
+
+  try {
+    fid = await getFidFromUsername(username)
+    const promises = await Promise.all([
+      getEthAddressFromFid(fid),
+      getUserDataByFid(fid, 3),
+      getUserDataByFid(fid, 1),
+    ])
+    address = promises[0]
+    description = promises[1]
+    pfp = promises[2]
+
+    if (!address) throw new Error('No address found')
+  } catch (err) {
+    return ctx.res({
+      action: '/tip',
+      image: (
+        <div style={{ ...backgroundStyles }}>
+          <div style={{ display: 'flex' }}>
+            <span style={{ paddingTop: 48 }}>Something went wrong :/</span>
+          </div>
+        </div>
+      ),
+      intents: [<Button>Restart</Button>],
+    })
+  }
 
   return ctx.res({
     action: '/tip/finish',
