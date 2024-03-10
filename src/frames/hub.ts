@@ -1,6 +1,17 @@
 const BASE_URL = 'https://api.hub.wevm.dev'
 
-const options: RequestInit<RequestInitCfProperties> = { cf: { cacheTtl: 3600 } }
+const options: RequestInit<RequestInitCfProperties> = {
+  cf: {
+    cacheTtl: 3600,
+    // Relevant for fetching a user's pfp
+    // Must have transformations enabled for the Cloudflare zone: https://developers.cloudflare.com/images/get-started/#enable-transformations
+    image: {
+      width: 512,
+      height: 512,
+      fit: 'cover',
+    },
+  },
+}
 
 export async function getFidFromUsername(username: string) {
   const res = await fetch(
@@ -21,9 +32,10 @@ export async function getFidFromUsername(username: string) {
 }
 
 export async function getEthAddressFromFid(fid: number) {
-  const res = await fetch(`${BASE_URL}/v1/verificationsByFid?fid=${fid}`, {
-    cf: { cacheTtl: 3600 },
-  })
+  const res = await fetch(
+    `${BASE_URL}/v1/verificationsByFid?fid=${fid}`,
+    options
+  )
 
   const data = (await res.json()) as {
     messages: Array<{
