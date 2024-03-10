@@ -15,7 +15,7 @@ export type CustomFrameContext = FrameContext<FrogOptions>
 export type CustomTransactionContext = TransactionContext<FrogOptions>
 
 export const app = new Frog<FrogOptions>({
-  browserLocation: '/',
+  browserLocation: '/swaps',
   imageOptions: async () => {
     const gilroy = await getFont('gilroy')
     const inter = await getFont('inter')

@@ -6,7 +6,7 @@ import { finishScreen } from './finish'
 import { getFont } from '../fonts'
 
 export const app = new Frog({
-  browserLocation: '/',
+  browserLocation: '/tips',
   imageOptions: async () => ({ fonts: [await getFont('satoshi')] }),
 })
 
