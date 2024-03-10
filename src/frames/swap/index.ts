@@ -19,9 +19,8 @@ export const app = new Frog<FrogOptions>({
   imageOptions: async () => {
     const gilroy = await getFont('gilroy')
     const inter = await getFont('inter')
-    const interBold = await getFont('inter-bold')
 
-    return { fonts: [gilroy, inter, interBold] }
+    return { fonts: [gilroy, inter] }
   },
 })
 

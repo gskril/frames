@@ -9,18 +9,14 @@ export interface FontOptions {
   lang?: string
 }
 
-export async function getFont(
-  font: 'inter' | 'inter-bold' | 'satoshi' | 'gilroy'
-) {
+export async function getFont(font: 'inter' | 'satoshi' | 'gilroy') {
   let fontData: ArrayBuffer
-  const baseUrl = 'https://github.com/gskril/assets/raw/main/fonts'
+  const baseUrl = 'https://github.com/gskril/frames/raw/main/assets/fonts'
 
   if (font === 'satoshi') {
     fontData = await fetchFont(`${baseUrl}/Satoshi-Bold.otf`)
   } else if (font === 'gilroy') {
     fontData = await fetchFont(`${baseUrl}/Gilroy-ExtraBold.otf`)
-  } else if (font === 'inter-bold') {
-    fontData = await fetchFont(`${baseUrl}/Inter-Bold.otf`)
   } else {
     fontData = await fetchFont(`${baseUrl}/Inter-Medium.otf`)
   }

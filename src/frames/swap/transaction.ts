@@ -1,7 +1,7 @@
 import { Address, parseEther } from 'viem'
 
 import { CustomTransactionContext } from '.'
-import { SupportedNetwork, ZeroXSwapQuote } from './types'
+import { ZeroXSwapQuote } from './types'
 
 export const transaction = async (c: CustomTransactionContext) => {
   const token = c.req.query('token') as Address
@@ -34,8 +34,3 @@ export const transaction = async (c: CustomTransactionContext) => {
     value: BigInt(order.value),
   })
 }
-
-const tokenMap = new Map<Address, SupportedNetwork>([
-  ['0x0578d8a44db98b23bf096a382e016e29a5ce0ffe', '8453'],
-  ['0x4ed4e862860bed51a9570b96d89af5e1b0efefed', '8453'],
-])

@@ -1,7 +1,5 @@
 import type { Address, Hex } from 'viem'
 
-export type SupportedNetwork = '10' | '8453'
-
 // https://0x.org/docs/0x-swap-api/api-references/get-swap-v1-quote#response
 export type ZeroXSwapQuote = {
   chainId: number
