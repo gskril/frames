@@ -9,16 +9,25 @@ export interface FontOptions {
   lang?: string
 }
 
-export async function getFonts() {
-  const satoshiData = await fetch(
-    new URL(
-      'https://github.com/gskril/bitsignal/raw/main/src/assets/fonts/Satoshi-Bold.otf'
-    )
-  ).then((res) => res.arrayBuffer())
+export async function getFont(font: 'inter' | 'satoshi') {
+  let fontData: ArrayBuffer
+
+  if (font === 'satoshi') {
+    // prettier-ignore
+    fontData = await fetchFont('https://github.com/gskril/frames/raw/main/assets/fonts/Satoshi-Bold.otf')
+  } else {
+    // prettier-ignore
+    fontData = await fetchFont('https://github.com/gskril/frames/raw/main/assets/fonts/Inter-Bold.otf')
+  }
 
   const fonts: FontOptions[] = [
-    { name: 'Satoshi', data: satoshiData, style: 'normal' },
+    { name: 'Font', data: fontData, style: 'normal' },
   ]
 
   return fonts
+}
+
+async function fetchFont(url: string) {
+  const res = await fetch(url, { cf: { cacheTtl: 31_536_000 } })
+  return res.arrayBuffer()
 }

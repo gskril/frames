@@ -1,15 +1,13 @@
 import { Frog } from 'frog'
 
-import { getFonts } from '../fonts'
 import { homeScreen } from './home'
 import { transaction } from './transaction'
 import { finishScreen } from './finish'
+import { getFont } from '../fonts'
 
 export const app = new Frog({
   browserLocation: '/',
-  imageOptions: async () => {
-    return { fonts: await getFonts() }
-  },
+  imageOptions: async () => ({ fonts: await getFont('satoshi') }),
 })
 
 app.frame('/', homeScreen)
