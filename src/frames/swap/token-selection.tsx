@@ -1,9 +1,9 @@
 import { Button } from 'frog'
 
-import { backgroundStyles } from './styles'
+import { backgroundStyles, titleStyles } from './styles'
 import { CustomFrameContext } from '.'
 
-const assets = [
+export const assets = [
   {
     name: '$DEGEN',
     network: 'base',
@@ -23,7 +23,7 @@ export const tokenSelectionScreen = (c: CustomFrameContext) => {
   return c.res({
     image: (
       <div style={backgroundStyles}>
-        <span style={{ fontSize: 106 }}>Pick Your Asset</span>
+        <span style={titleStyles}>Pick Your Asset</span>
         <div style={{ display: 'flex', gap: 48 }}>
           {assets.map((asset) => (
             <div

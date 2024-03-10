@@ -1,14 +1,41 @@
 import { Button } from 'frog'
 
-import { backgroundStyles } from './styles'
+import { backgroundStyles, titleStyles } from './styles'
 import { CustomFrameContext } from '.'
+import { assets } from './token-selection'
 
 export const homeScreen = (c: CustomFrameContext) => {
   return c.res({
     image: (
-      <div style={backgroundStyles}>
-        <span style={{ fontSize: 106 }}>Frame Swap</span>
-        <span style={{ color: '#5E6773' }}>Easily trade memecoins</span>
+      <div
+        style={{ ...backgroundStyles, padding: 64, backgroundColor: '#6944BA' }}
+      >
+        <div
+          style={{
+            ...backgroundStyles,
+            position: 'relative',
+            border: '2px solid rgba(15, 36, 56, 0.1)',
+            borderRadius: 32,
+            gap: 12,
+          }}
+        >
+          <div
+            style={{ display: 'flex', flexDirection: 'row-reverse', gap: -16 }}
+          >
+            {assets.reverse().map((asset, i) => (
+              <img
+                src={asset.image}
+                width={54}
+                height={54}
+                style={{ borderRadius: 99 }}
+              />
+            ))}
+          </div>
+
+          <span style={titleStyles}>Frame Swap</span>
+
+          <span style={{ color: '#5E6773' }}>Easily trade memecoins</span>
+        </div>
       </div>
     ),
     intents: [<Button action={`/token-selection`}>Get Started</Button>],

@@ -16,13 +16,19 @@ export type CustomTransactionContext = TransactionContext<FrogOptions>
 
 export const app = new Frog<FrogOptions>({
   browserLocation: '/',
-  imageOptions: async () => ({ fonts: await getFont('inter') }),
+  imageOptions: async () => {
+    const gilroy = await getFont('gilroy')
+    const inter = await getFont('inter')
+    const interBold = await getFont('inter-bold')
+
+    return { fonts: [gilroy, inter, interBold] }
+  },
 })
 
 app.frame('/', homeScreen)
 app.frame('/token-selection', tokenSelectionScreen)
-app.frame('/:network/:token', tradeScreen)
 app.frame('/finish', finishScreen)
+app.frame('/:network/:token', tradeScreen)
 app.transaction('/tx', transaction)
 
 export default app

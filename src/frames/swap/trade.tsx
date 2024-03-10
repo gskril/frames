@@ -1,7 +1,7 @@
 import { Button, TextInput } from 'frog'
 import { Address } from 'viem'
 
-import { backgroundStyles } from './styles'
+import { backgroundStyles, titleStyles } from './styles'
 import { CustomFrameContext } from '.'
 
 export const tradeScreen = (c: CustomFrameContext) => {
@@ -11,7 +11,11 @@ export const tradeScreen = (c: CustomFrameContext) => {
 
   return c.res({
     action: '/finish',
-    image: <div style={backgroundStyles}>Buy Token</div>,
+    image: (
+      <div style={backgroundStyles}>
+        <span style={titleStyles}>Buy [token_symbol]</span>
+      </div>
+    ),
     intents: [
       <TextInput placeholder="ETH amount (default 0.01)" />,
       <Button.Transaction target={`/tx?network=${network}&token=${token}`}>
