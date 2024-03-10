@@ -1,7 +1,12 @@
 const BASE_URL = 'https://api.hub.wevm.dev'
 
+const options: RequestInit<RequestInitCfProperties> = { cf: { cacheTtl: 3600 } }
+
 export async function getFidFromUsername(username: string) {
-  const res = await fetch(`${BASE_URL}/v1/userNameProofByName?name=${username}`)
+  const res = await fetch(
+    `${BASE_URL}/v1/userNameProofByName?name=${username}`,
+    options
+  )
 
   const data = (await res.json()) as {
     timestamp: number
@@ -16,7 +21,9 @@ export async function getFidFromUsername(username: string) {
 }
 
 export async function getEthAddressFromFid(fid: number) {
-  const res = await fetch(`${BASE_URL}/v1/verificationsByFid?fid=${fid}`)
+  const res = await fetch(`${BASE_URL}/v1/verificationsByFid?fid=${fid}`, {
+    cf: { cacheTtl: 3600 },
+  })
 
   const data = (await res.json()) as {
     messages: Array<{
@@ -48,7 +55,8 @@ export async function getEthAddressFromFid(fid: number) {
 
 export async function getUserDataByFid(fid: number, type: number) {
   const res = await fetch(
-    `${BASE_URL}/v1/userDataByFid?fid=${fid}&user_data_type=${type}`
+    `${BASE_URL}/v1/userDataByFid?fid=${fid}&user_data_type=${type}`,
+    options
   )
 
   const data = (await res.json()) as {
