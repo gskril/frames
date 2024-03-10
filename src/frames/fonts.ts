@@ -9,22 +9,23 @@ export interface FontOptions {
   lang?: string
 }
 
-export async function getFont(font: 'inter' | 'satoshi') {
+export async function getFont(
+  font: 'inter' | 'inter-bold' | 'satoshi' | 'gilroy'
+) {
   let fontData: ArrayBuffer
+  const baseUrl = 'https://github.com/gskril/assets/raw/main/fonts'
 
   if (font === 'satoshi') {
-    // prettier-ignore
-    fontData = await fetchFont('https://github.com/gskril/frames/raw/main/assets/fonts/Satoshi-Bold.otf')
+    fontData = await fetchFont(`${baseUrl}/Satoshi-Bold.otf`)
+  } else if (font === 'gilroy') {
+    fontData = await fetchFont(`${baseUrl}/Gilroy-ExtraBold.otf`)
+  } else if (font === 'inter-bold') {
+    fontData = await fetchFont(`${baseUrl}/Inter-Bold.otf`)
   } else {
-    // prettier-ignore
-    fontData = await fetchFont('https://github.com/gskril/frames/raw/main/assets/fonts/Inter-Bold.otf')
+    fontData = await fetchFont(`${baseUrl}/Inter-Medium.otf`)
   }
 
-  const fonts: FontOptions[] = [
-    { name: 'Font', data: fontData, style: 'normal' },
-  ]
-
-  return fonts
+  return { name: font, data: fontData, style: 'normal' } satisfies FontOptions
 }
 
 async function fetchFont(url: string) {
