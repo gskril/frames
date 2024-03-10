@@ -4,7 +4,7 @@ import { homeScreen } from './start'
 import { getFont } from '../fonts'
 import { transaction } from './transaction'
 import { finishScreen } from './finish'
-import { buyScreen } from './buy'
+import { tradeScreen } from './trade'
 
 type FrogOptions = {
   Bindings: { ZEROX_API_KEY?: string }
@@ -19,7 +19,7 @@ export const app = new Frog<FrogOptions>({
 })
 
 app.frame('/', homeScreen)
-app.frame('/buy/:token', buyScreen)
+app.frame('/:network/:token', tradeScreen)
 app.frame('/finish', finishScreen)
 app.transaction('/tx', transaction)
 

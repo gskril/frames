@@ -5,13 +5,11 @@ import { SupportedNetwork, ZeroXSwapQuote } from './types'
 
 export const transaction = async (c: CustomTransactionContext) => {
   const token = c.req.query('token') as Address
-  const network = tokenMap.get(token) || '8453'
+  const network = c.req.query('network') as 'base' | 'optimism'
   const value = c.inputText || '0.01'
 
-  console.log(token, network, value)
-
   // prettier-ignore
-  const baseUrl = `https://${network === '10' ? 'optimism' : 'base'}.api.0x.org/swap/v1/quote?`
+  const baseUrl = `https://${network}.api.0x.org/swap/v1/quote?`
   const eth = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 
   // https://0x.org/docs/0x-swap-api/api-references/get-swap-v1-quote#request
@@ -30,7 +28,7 @@ export const transaction = async (c: CustomTransactionContext) => {
   const order = (await res.json()) as ZeroXSwapQuote
 
   return c.send({
-    chainId: `eip155:${network}`,
+    chainId: `eip155:${network === 'base' ? '8453' : '10'}`,
     to: order.to,
     data: order.data,
     value: BigInt(order.value),
