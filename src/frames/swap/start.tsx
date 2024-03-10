@@ -19,10 +19,8 @@ export const homeScreen = (c: CustomFrameContext) => {
             gap: 12,
           }}
         >
-          <div
-            style={{ display: 'flex', flexDirection: 'row-reverse', gap: -16 }}
-          >
-            {assets.reverse().map((asset, i) => (
+          <div style={{ display: 'flex', gap: -16 }}>
+            {assets.map((asset, i) => (
               <img
                 src={asset.image}
                 width={54}
@@ -34,7 +32,9 @@ export const homeScreen = (c: CustomFrameContext) => {
 
           <span style={titleStyles}>Frame Swap</span>
 
-          <span style={{ color: '#5E6773' }}>Easily trade memecoins</span>
+          <span style={{ color: '#5E6773', fontSize: 48 }}>
+            Easily trade ERC20 tokens
+          </span>
         </div>
       </div>
     ),

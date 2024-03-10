@@ -13,7 +13,7 @@ export async function getFont(
   font: 'inter' | 'inter-bold' | 'satoshi' | 'gilroy'
 ) {
   let fontData: ArrayBuffer
-  const baseUrl = 'https://github.com/gskril/frames/raw/main/assets/fonts'
+  const baseUrl = 'https://github.com/gskril/assets/raw/main/fonts'
 
   if (font === 'satoshi') {
     fontData = await fetchFont(`${baseUrl}/Satoshi-Bold.otf`)
