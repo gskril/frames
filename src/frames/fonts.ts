@@ -11,6 +11,7 @@ export interface FontOptions {
 
 export async function getFont(font: 'inter' | 'satoshi' | 'gilroy') {
   let fontData: ArrayBuffer
+  // This should be a relative URL from the Worker but for some reason I can't get that working so this will do 🤷‍♂️
   const baseUrl = 'https://github.com/gskril/frames/raw/main/assets/fonts'
 
   if (font === 'satoshi') {

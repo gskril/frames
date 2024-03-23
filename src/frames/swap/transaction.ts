@@ -18,7 +18,7 @@ export const transaction = async (c: CustomTransactionContext) => {
     sellToken: eth,
     sellAmount: parseEther(value).toString(),
     feeRecipient: '0x00000b0A7308257BFD464868f14D34C5108fd898',
-    buyTokenPercentageFee: '0.01',
+    buyTokenPercentageFee: '0.03',
   }).toString()
 
   const res = await fetch(baseUrl + params, {

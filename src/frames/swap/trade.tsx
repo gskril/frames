@@ -32,7 +32,7 @@ export const tradeScreen = async (c: CustomFrameContext) => {
         <span style={titleStyles}>Buy ${symbol}</span>
 
         <span style={warningStyles}>
-          This is experimental. Swap at your own risk. There is a 1% fee
+          This is experimental. Swap at your own risk. There is a small fee
         </span>
       </div>
     ),
