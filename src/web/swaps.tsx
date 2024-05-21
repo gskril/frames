@@ -15,7 +15,9 @@ export const Swaps = () => {
 
       <body style={{ lineHeight: 1.25, padding: '1rem' }}>
         <h1>Frame Swap</h1>
-        <p>Easily swap ETH for ERC20 tokens on Base and OP Mainnet</p>
+        <p>
+          Easily swap ETH for ERC20 tokens on Base, Arbitrum, and OP Mainnet
+        </p>
 
         <p>
           The main frame is{' '}
@@ -47,6 +49,9 @@ export const Swaps = () => {
         <ul>
           <li>
             https://frames.fcstr.xyz/swap/optimism/0x4200000000000000000000000000000000000042
+          </li>
+          <li>
+            https://frames.fcstr.xyz/swap/arbitrum/0x912CE59144191C1204E64559FE8253a0e49E6548
           </li>
           <li>
             https://frames.fcstr.xyz/swap/base/0x4ed4e862860bed51a9570b96d89af5e1b0efefed

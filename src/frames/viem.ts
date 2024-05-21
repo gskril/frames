@@ -1,5 +1,5 @@
 import { createPublicClient, http } from 'viem'
-import { base, optimism } from 'viem/chains'
+import { arbitrum, base, optimism } from 'viem/chains'
 
 export const baseClient = createPublicClient({
   chain: base,
@@ -8,5 +8,10 @@ export const baseClient = createPublicClient({
 
 export const optimismClient = createPublicClient({
   chain: optimism,
+  transport: http(),
+})
+
+export const arbitrumClient = createPublicClient({
+  chain: arbitrum,
   transport: http(),
 })

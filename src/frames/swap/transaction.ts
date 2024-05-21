@@ -5,7 +5,7 @@ import { ZeroXSwapQuote } from './types'
 
 export const transaction = async (c: CustomTransactionContext) => {
   const token = c.req.query('token') as Address
-  const network = c.req.query('network') as 'base' | 'optimism'
+  const network = c.req.query('network') as 'base' | 'optimism' | 'arbitrum'
   const value = c.inputText || '0.01'
 
   // prettier-ignore
@@ -28,7 +28,10 @@ export const transaction = async (c: CustomTransactionContext) => {
   const order = (await res.json()) as ZeroXSwapQuote
 
   return c.send({
-    chainId: `eip155:${network === 'base' ? '8453' : '10'}`,
+    // @ts-expect-error: Frog hasn't been updated to support Arbitrum yet
+    chainId: `eip155:${
+      network === 'base' ? '8453' : network === 'arbitrum' ? '42161' : '10'
+    }`,
     to: order.to,
     data: order.data,
     value: BigInt(order.value),

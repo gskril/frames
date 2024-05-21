@@ -3,11 +3,14 @@ import { Address, parseAbi } from 'viem'
 
 import { backgroundStyles, warningStyles, titleStyles } from './styles'
 import { CustomFrameContext } from '.'
-import { baseClient, optimismClient } from '../viem'
+import { arbitrumClient, baseClient, optimismClient } from '../viem'
 
 export const tradeScreen = async (c: CustomFrameContext) => {
   // TODO: figure out a better way to type these
-  const network = c.req.param('network' as never) as 'base' | 'optimism'
+  const network = c.req.param('network' as never) as
+    | 'base'
+    | 'optimism'
+    | 'arbitrum'
   const token = c.req.param('token' as never) as Address
   let symbol: string = 'Unknown Token'
 
@@ -19,6 +22,12 @@ export const tradeScreen = async (c: CustomFrameContext) => {
     })
   } else if (network === 'optimism') {
     symbol = await optimismClient.readContract({
+      address: token,
+      abi: parseAbi(['function symbol() view returns (string)']),
+      functionName: 'symbol',
+    })
+  } else if (network === 'arbitrum') {
+    symbol = await arbitrumClient.readContract({
       address: token,
       abi: parseAbi(['function symbol() view returns (string)']),
       functionName: 'symbol',
