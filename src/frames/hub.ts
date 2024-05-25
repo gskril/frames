@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.hub.wevm.dev'
+const BASE_URL = 'https://gregskril-hubble.web.val.run'
 
 const options: RequestInit<RequestInitCfProperties> = {
   cf: {
