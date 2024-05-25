@@ -28,7 +28,6 @@ export const transaction = async (c: CustomTransactionContext) => {
   const order = (await res.json()) as ZeroXSwapQuote
 
   return c.send({
-    // @ts-expect-error: Frog hasn't been updated to support Arbitrum yet
     chainId: `eip155:${
       network === 'base' ? '8453' : network === 'arbitrum' ? '42161' : '10'
     }`,

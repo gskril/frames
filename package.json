@@ -6,8 +6,8 @@
     "wrangler:deploy": "wrangler deploy --minify src/index.tsx"
   },
   "dependencies": {
-    "frog": "^0.5.5",
-    "hono": "^4.0.9"
+    "frog": "^0.11.4",
+    "hono": "^4.3.11"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240208.0",
