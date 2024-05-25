@@ -4,13 +4,11 @@ import { Address, parseAbi } from 'viem'
 import { backgroundStyles, warningStyles, titleStyles } from './styles'
 import { CustomFrameContext } from '.'
 import { arbitrumClient, baseClient, optimismClient } from '../viem'
+import { SupportedNetwork } from '../types'
 
 export const tradeScreen = async (c: CustomFrameContext) => {
   // TODO: figure out a better way to type these
-  const network = c.req.param('network' as never) as
-    | 'base'
-    | 'optimism'
-    | 'arbitrum'
+  const network = c.req.param('network' as never) as SupportedNetwork
   const token = c.req.param('token' as never) as Address
   let symbol: string = 'Unknown Token'
 

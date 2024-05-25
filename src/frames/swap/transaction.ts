@@ -2,10 +2,12 @@ import { Address, parseEther } from 'viem'
 
 import { CustomTransactionContext } from '.'
 import { ZeroXSwapQuote } from './types'
+import { SupportedNetwork } from '../types'
+import { getChainIdFromName } from '../utils'
 
 export const transaction = async (c: CustomTransactionContext) => {
   const token = c.req.query('token') as Address
-  const network = c.req.query('network') as 'base' | 'optimism' | 'arbitrum'
+  const network = c.req.query('network') as SupportedNetwork
   const value = c.inputText || '0.01'
 
   // prettier-ignore
@@ -28,9 +30,7 @@ export const transaction = async (c: CustomTransactionContext) => {
   const order = (await res.json()) as ZeroXSwapQuote
 
   return c.send({
-    chainId: `eip155:${
-      network === 'base' ? '8453' : network === 'arbitrum' ? '42161' : '10'
-    }`,
+    chainId: `eip155:${getChainIdFromName(network)}`,
     to: order.to,
     data: order.data,
     value: BigInt(order.value),
