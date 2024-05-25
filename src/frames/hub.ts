@@ -15,7 +15,7 @@ const options: RequestInit<RequestInitCfProperties> = {
 
 export async function getFidFromUsername(username: string) {
   const res = await fetch(
-    `${BASE_URL}/v1/userNameProofByName?name=${username}`,
+    `${BASE_URL}/v1/userNameProofByName?name=${username?.toLowerCase()}`,
     options
   )
 
