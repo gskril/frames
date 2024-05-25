@@ -17,8 +17,8 @@ export const Home = () => {
         <h1>Farcaster Frames</h1>
 
         <p>
-          Check out <a href="/tips">/tips</a> and <a href="swaps">/swaps</a> for
-          more info
+          Check out <a href="/tips">/tips</a>, <a href="swaps">/swaps</a> and{' '}
+          <a href="/bridges">/bridges</a> for more info
         </p>
 
         <p>
