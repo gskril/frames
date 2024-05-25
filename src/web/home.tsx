@@ -13,7 +13,7 @@ export const Home = () => {
         />
       </head>
 
-      <body style={{ lineHeight: 1.25, padding: '1rem' }}>
+      <body style={{ lineHeight: '1.25', padding: '1rem' }}>
         <h1>Farcaster Frames</h1>
 
         <p>

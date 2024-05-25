@@ -13,7 +13,7 @@ export const Tips = () => {
         />
       </head>
 
-      <body style={{ lineHeight: 1.25, padding: '1rem' }}>
+      <body style={{ lineHeight: '1.25', padding: '1rem' }}>
         <h1>ETH Tipping in a Farcaster Frame</h1>
         <p>
           Just cast with the link{' '}

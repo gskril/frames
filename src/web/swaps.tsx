@@ -13,7 +13,7 @@ export const Swaps = () => {
         />
       </head>
 
-      <body style={{ lineHeight: 1.25, padding: '1rem' }}>
+      <body style={{ lineHeight: '1.25', padding: '1rem' }}>
         <h1>Frame Swap</h1>
         <p>
           Easily swap ETH for ERC20 tokens on Base, Arbitrum, and OP Mainnet
