@@ -1,4 +1,6 @@
 import { Frog } from 'frog'
+import { devtools } from 'frog/dev'
+import { serveStatic } from 'frog/serve-static'
 
 import tipFrame from './frames/tip'
 import swapFrame from './frames/swap'
@@ -14,4 +16,5 @@ app.get('/swaps', (ctx) => ctx.html(<Swaps />))
 app.route('/tip', tipFrame)
 app.route('/swap', swapFrame)
 
+// devtools(app, { serveStatic })
 export default app

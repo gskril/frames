@@ -133,6 +133,9 @@ export const homeScreen = async (c: FrameContext) => {
       <Button.Transaction target={`/tx?address=${address}&network=10`}>
         Tip on Optimism
       </Button.Transaction>,
+      <Button.Transaction target={`/tx?address=${address}&network=42161`}>
+        Tip on Arbitrum
+      </Button.Transaction>,
     ],
   })
 }
