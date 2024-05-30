@@ -1,7 +1,9 @@
 import { SupportedNetwork } from './types'
 
-export function getChainIdFromName(name: SupportedNetwork) {
+export function getChainIdFromName(name: SupportedNetwork | 'ethereum') {
   switch (name) {
+    case 'ethereum':
+      return '1'
     case 'base':
       return '8453'
     case 'arbitrum':

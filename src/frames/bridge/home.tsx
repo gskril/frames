@@ -1,7 +1,10 @@
-import { Button, FrameContext, FrameIntent, TextInput } from 'frog'
+import { Button, FrameContext, TextInput } from 'frog'
 
 import { backgroundStyles } from '../swap/styles'
-import { SupportedNetwork, supportedNetworks } from '../types'
+import { supportedNetworks as _supportedNetworks } from '../types'
+
+const supportedNetworks = ['ethereum', ..._supportedNetworks] as const
+type SupportedNetwork = (typeof supportedNetworks)[number]
 
 export const homeScreen = async (
   c: FrameContext,
@@ -38,6 +41,7 @@ export const homeScreen = async (
         </div>
       ),
       intents: [
+        <Button action={`/ethereum`}>Ethereum</Button>,
         <Button action={`/base`}>Base</Button>,
         <Button action={`/optimism`}>Optimism</Button>,
         <Button action={`/arbitrum`}>Arbitrum</Button>,

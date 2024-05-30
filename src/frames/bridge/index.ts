@@ -11,6 +11,7 @@ export const app = new Frog({
 })
 
 app.frame('/', homeScreen)
+app.frame('/ethereum', (c) => homeScreen(c, 'ethereum'))
 app.frame('/base', (c) => homeScreen(c, 'base'))
 app.frame('/optimism', (c) => homeScreen(c, 'optimism'))
 app.frame('/arbitrum', (c) => homeScreen(c, 'arbitrum'))

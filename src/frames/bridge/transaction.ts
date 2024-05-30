@@ -1,9 +1,11 @@
 import { TransactionContext } from 'frog'
 import { Address, parseEther, isAddress } from 'viem'
 
-import { SupportedNetwork } from '../types'
+import { SupportedNetwork as BaseSupportedNetwork } from '../types'
 import { getChainIdFromName } from '../utils'
 import { spokePoolContractAbi } from './across'
+
+type SupportedNetwork = BaseSupportedNetwork | 'ethereum'
 
 // Bridging powered by Across
 // https://docs.across.to/integration-guides/across-bridge-integration
@@ -12,13 +14,12 @@ export const transaction = async (c: TransactionContext) => {
   const fromNetwork = c.req.query('from') as SupportedNetwork
   const bridgeAmount = c.inputText || '0.01'
 
-  console.log(toNetwork)
-
   if (!c.address || !isAddress(c.address)) {
     return c.error({ message: 'No address found' })
   }
 
   const wethByChain = {
+    ethereum: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     base: '0x4200000000000000000000000000000000000006',
     arbitrum: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
     optimism: '0x4200000000000000000000000000000000000006',
@@ -37,8 +38,6 @@ export const transaction = async (c: TransactionContext) => {
     destinationChainId,
     amount: parsedAmount.toString(),
   })
-
-  console.log(params)
 
   const endpoint = `${url}?${params.toString()}`
   const acrossRes = await fetch(endpoint)
