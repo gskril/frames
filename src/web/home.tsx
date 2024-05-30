@@ -21,6 +21,8 @@ export const Home = () => {
           <a href="/bridges">/bridges</a> for more info
         </p>
 
+        <p>All frames support Arbitrum, Base, and OP Mainnet</p>
+
         <p>
           Built by <a href="https://warpcast.com/greg">@greg</a>
         </p>
