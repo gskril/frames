@@ -2,6 +2,9 @@ name = "farcaster-frames"
 main = "src/index.tsx"
 compatibility_date = "2023-12-01"
 
+[placement]
+mode = "smart"
+
 # The necessary secrets are:
 # - ZEROX_API_KEY
 # Run `echo <VALUE> | npx wrangler secret put <NAME>` for each of these

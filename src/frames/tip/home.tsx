@@ -16,18 +16,6 @@ export const homeScreen = async (c: FrameContext) => {
         <div style={{ ...backgroundStyles }}>
           <div style={{ display: 'flex' }}>
             <span style={{ paddingTop: 48 }}>Tip Your Farcaster Friends</span>
-            <img
-              src="https://github.com/vrypan/farcaster-brand/blob/main/icons/icon-transparent/transparent-purple.png?raw=true"
-              width={224}
-              height={224}
-              style={{
-                position: 'absolute',
-                right: 0,
-                borderRadius: 32,
-                boxShadow: '2px 2px 100px 32px rgba(133, 93, 205, 0.3)',
-                objectFit: 'cover',
-              }}
-            />
           </div>
 
           <div
@@ -57,20 +45,22 @@ export const homeScreen = async (c: FrameContext) => {
     })
   }
 
-  let fid: number, address: string, description: string, pfp: string
+  let fid: number, address: string, description: string
 
   try {
     fid = await getFidFromUsername(username)
+
     const promises = await Promise.all([
       getEthAddressFromFid(fid),
       getUserDataByFid(fid, 3),
-      getUserDataByFid(fid, 1),
     ])
+
     address = promises[0]
     description = promises[1]
-    pfp = promises[2]
 
-    if (!address) throw new Error('No address found')
+    if (!address) {
+      return c.error({ message: 'User does not have an Ethereum address' })
+    }
   } catch (err) {
     return c.res({
       action: '/',
@@ -91,18 +81,6 @@ export const homeScreen = async (c: FrameContext) => {
       <div style={{ ...backgroundStyles }}>
         <div style={{ display: 'flex' }}>
           <span style={{ paddingTop: 48 }}>Tip @{username}</span>
-          <img
-            src={pfp}
-            width={224}
-            height={224}
-            style={{
-              position: 'absolute',
-              right: 0,
-              borderRadius: 999,
-              boxShadow: '2px 2px 100px 32px rgba(133, 93, 205, 0.3)',
-              objectFit: 'cover',
-            }}
-          />
         </div>
 
         <div

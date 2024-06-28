@@ -8,5 +8,4 @@ export const backgroundStyles: Hono.CSSProperties = {
   width: '100%',
   height: '100%',
   backgroundColor: '#0D0915',
-  backgroundImage: 'url(https://i.imgur.com/9llZeZd.png)',
 }
