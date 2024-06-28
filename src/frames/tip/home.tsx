@@ -1,10 +1,12 @@
 import { Button, FrameContext, TextInput } from 'frog'
+
 import { backgroundStyles } from './styles'
 import {
   getEthAddressFromFid,
   getFidFromUsername,
   getUserDataByFid,
 } from '../hub'
+import { truncateAddress } from '../utils'
 
 export const homeScreen = async (c: FrameContext) => {
   const username = c.inputText || c.req.query('username')
@@ -79,8 +81,11 @@ export const homeScreen = async (c: FrameContext) => {
     action: '/finish',
     image: (
       <div style={{ ...backgroundStyles }}>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <span style={{ paddingTop: 48 }}>Tip @{username}</span>
+          <span style={{ fontSize: 30, color: '#ADA6B4' }}>
+            {truncateAddress(address)}
+          </span>
         </div>
 
         <div

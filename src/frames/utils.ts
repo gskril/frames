@@ -12,3 +12,7 @@ export function getChainIdFromName(name: SupportedNetwork | 'ethereum') {
       return '10'
   }
 }
+
+export function truncateAddress(address: string) {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`
+}
